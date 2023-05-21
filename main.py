@@ -39,9 +39,10 @@ def process_image():
     output_bytes = BytesIO()
     background_image.save(output_bytes, format='PNG')
     output_bytes.seek(0)
+    output_base64 = base64.b64encode(output_bytes.getvalue()).decode('utf-8')
 
     return jsonify({"status": 200,
-                    "image": output_bytes})
+                    "image": output_base64})
 
 
 if __name__ == '__main__':
