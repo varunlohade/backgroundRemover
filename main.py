@@ -40,12 +40,8 @@ def process_image():
     background_image.save(output_bytes, format='PNG')
     output_bytes.seek(0)
 
-    return send_file(
-    output_bytes,
-    mimetype='image/png',
-    as_attachment=True,
-    download_name="custom_name.png"
-)
+    return jsonify({"status": 200,
+                    "image": output_bytes})
 
 
 if __name__ == '__main__':
