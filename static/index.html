@@ -5,15 +5,15 @@
 </head>
 <body>
     <h1>Upload your image</h1>
-    <form action="/removeBackground" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" accept="image/*">
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" id="image-input" accept="image/*">
         <input type="submit" value="Upload">
     </form>
 
     <div id="output-image"></div>
 
     <script>
-        document.querySelector('form').addEventListener('submit', function(event) {
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
             var form = event.target;
@@ -24,12 +24,19 @@
                 body: formData
             })
             .then(function(response) {
-                return response.blob();
+                if (response.ok) {
+                    return response.blob();
+                } else {
+                    throw new Error('Image processing failed.');
+                }
             })
             .then(function(blob) {
                 var url = URL.createObjectURL(blob);
                 var outputImage = document.getElementById('output-image');
                 outputImage.innerHTML = '<img src="' + url + '" alt="Processed Image">';
+            })
+            .catch(function(error) {
+                console.error(error);
             });
         });
     </script>
