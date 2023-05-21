@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, send_file
 from PIL import Image
 from io import BytesIO
 from random import randint
-
+import os
 
 app = Flask(__name__, static_folder='static')
 
@@ -47,4 +47,4 @@ def process_image():
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(debug=True, port=os.getenv("PORT", default=5000))
