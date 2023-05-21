@@ -7,12 +7,12 @@ from io import BytesIO
 from random import randint
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 
 @app.route('/')
 def index():
-    return "<p>Hello, World!</p>"
+    return app.send_static_file('index.html')
 
 
 @app.route("/removeBackground", methods=['POST'])
