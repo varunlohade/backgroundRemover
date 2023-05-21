@@ -1,6 +1,5 @@
 import rembg
 import numpy as np
-import cv2
 from flask import Flask, request, jsonify, send_file
 from PIL import Image
 from io import BytesIO
