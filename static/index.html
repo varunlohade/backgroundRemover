@@ -9,5 +9,29 @@
         <input type="file" name="image" accept="image/*">
         <input type="submit" value="Upload">
     </form>
+
+    <div id="output-image"></div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var form = event.target;
+            var formData = new FormData(form);
+
+            fetch('/removeBackground', {
+                method: 'POST',
+                body: formData
+            })
+            .then(function(response) {
+                return response.blob();
+            })
+            .then(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var outputImage = document.getElementById('output-image');
+                outputImage.innerHTML = '<img src="' + url + '" alt="Processed Image">';
+            });
+        });
+    </script>
 </body>
 </html>
