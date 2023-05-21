@@ -44,8 +44,6 @@ def process_image():
     return send_file(
     output_bytes,
     mimetype='image/png',
-    as_attachment=True,
-    download_name="custom_name.png"
 )
 
 
